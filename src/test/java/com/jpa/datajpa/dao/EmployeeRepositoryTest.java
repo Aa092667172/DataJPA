@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 @SpringBootTest
 public class EmployeeRepositoryTest {
     @Autowired
@@ -15,8 +17,8 @@ public class EmployeeRepositoryTest {
     @Test
     void insert(){
         Employee employee = new Employee();
-        employee.setName("鈺凱");
-        employee.setPhone("0919336777");
+        employee.setName("阿森");
+        employee.setPhone("096666666");
         employee.setDepartmentId(1l);
         employeeRepository.save(employee);
     }
@@ -60,6 +62,12 @@ public class EmployeeRepositoryTest {
         EmployeeOnlySnoPhone employeeOnlySnoPhone = employeeRepository.testJPQLToInterfaceByQuery(17l);
         System.out.println(employeeOnlySnoPhone.getId());
         System.out.println(employeeOnlySnoPhone.getPhone());
+    }
+
+    @Test
+    void findDynamic(){
+        assertEquals(employeeRepository.testJPQLByDynamicQuery(null,null,null).size(),2);
+        assertEquals(employeeRepository.testJPQLByDynamicQuery(null,"鈺凱",null).size(),1);
     }
 
 }

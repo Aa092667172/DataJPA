@@ -17,6 +17,7 @@ public class Employee {
     private Long id;
     private String name;
     private String phone;
+    @Column(name = "department_id")
     private Long departmentId;
 
 }

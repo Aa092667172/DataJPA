@@ -11,4 +11,11 @@ spring:
     username: sa
     password: taehee520
     url: jdbc:sqlserver://localhost:1433;database=jpaTest;trustServerCertificate=true
-
+logging:
+  level:
+    org:
+      hibernate:
+        type:
+          descriptor:
+            sql:
+              BasicBinder: trace

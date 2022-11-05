@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * 不希望對外暴露增刪改僅查詢等等 可繼承 Repository 再在介面宣告方法即可
  * 不需要Page功能 可繼承CRUD Repository
@@ -30,7 +32,10 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long> {
     //需加入as 否則將會無資料
     @Query("select e.id as id,e.phone as phone from Employee e  where e.id =:id ")
     EmployeeOnlySnoPhone testJPQLToInterfaceByQuery(Long id);
-
-    @Query("select e.id as id,e.phone as phone from Employee e  where e.id =:id ")
-    EmployeeOnlySnoPhone testJPQLToInterfaceByDynamicQuery(Long id);
+    //native 使用 (:#{#tableName.columnName})
+    @Query(" from Employee e  where " +
+            "  (e.phone = :phone or :phone is null  ) " +
+            " and ( e.name =:name or :name is null  ) " +
+            " and (e.id =:sno or :sno is null   )  ")
+    List<Employee> testJPQLByDynamicQuery(@Param("sno") Long id,String name,String phone);
 }
