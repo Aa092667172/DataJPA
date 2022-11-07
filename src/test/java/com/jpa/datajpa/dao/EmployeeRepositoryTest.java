@@ -75,5 +75,8 @@ public class EmployeeRepositoryTest {
         assertEquals(employeeRepository.testJPQLByDynamicQuery(null,null,null).size(),2);
         assertEquals(employeeRepository.testJPQLByDynamicQuery(null,"鈺凱",null).size(),1);
     }
-
+    @Test
+    void findDynamic1(){
+        assertEquals(employeeRepository.testJPQLByDynamicQuery1(null,"鈺凱",null).size(),1);
+    }
 }

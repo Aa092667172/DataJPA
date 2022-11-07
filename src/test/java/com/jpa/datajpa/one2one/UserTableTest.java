@@ -37,7 +37,7 @@ public class UserTableTest {
     @Test
     @Rollback(false)
     public void testUserRelationships(){
-        UserInfo userInfo = userInfoRepository.getReferenceById(59l);
+        UserInfo userInfo = userInfoRepository.getReferenceById(46l);
         System.out.println(userInfo);
         System.out.println(userInfo.getUserTest().getId());
     }

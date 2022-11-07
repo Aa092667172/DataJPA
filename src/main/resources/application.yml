@@ -10,7 +10,7 @@ spring:
   datasource:
     driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
     username: sa
-    password: 123456
+    password: taehee520
     url: jdbc:sqlserver://localhost:1433;database=jpaTest;trustServerCertificate=true
 logging:
   level:
