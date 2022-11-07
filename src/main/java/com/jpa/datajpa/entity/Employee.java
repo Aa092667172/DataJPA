@@ -1,14 +1,15 @@
 package com.jpa.datajpa.entity;
 
+import com.jpa.datajpa.enums.Gender;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.function.Consumer;
 
 @Data
 @NoArgsConstructor
 @Entity
-
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,5 +20,8 @@ public class Employee {
     private String phone;
     @Column(name = "department_id")
     private Long departmentId;
-
+    //用於儲存枚舉名稱
+    @Enumerated(EnumType.STRING)
+    @Column(name = "gender")
+    private Gender gender;
 }

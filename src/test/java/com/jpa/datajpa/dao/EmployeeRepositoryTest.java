@@ -2,14 +2,19 @@ package com.jpa.datajpa.dao;
 
 import com.jpa.datajpa.dto.EmployeeOnlySnoNameDto;
 import com.jpa.datajpa.entity.Employee;
+import com.jpa.datajpa.enums.Gender;
 import com.jpa.datajpa.interfaces.EmployeeOnlySnoPhone;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
+@DataJpaTest
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class EmployeeRepositoryTest {
     @Autowired
     private EmployeeRepository employeeRepository;
@@ -17,9 +22,10 @@ public class EmployeeRepositoryTest {
     @Test
     void insert(){
         Employee employee = new Employee();
-        employee.setName("阿森");
-        employee.setPhone("096666666");
+        employee.setName("測試");
+        employee.setPhone("09333333465");
         employee.setDepartmentId(1l);
+        employee.setGender(Gender.FEMALE);
         employeeRepository.save(employee);
     }
     @Test
@@ -42,7 +48,7 @@ public class EmployeeRepositoryTest {
 
     @Test
     void findQuery(){
-        System.out.println(employeeRepository.testByQuery(17l));
+        System.out.println(employeeRepository.testByQuery(1l));
     }
 
     @Test
@@ -59,7 +65,7 @@ public class EmployeeRepositoryTest {
 
     @Test
     void findQueryInterface(){
-        EmployeeOnlySnoPhone employeeOnlySnoPhone = employeeRepository.testJPQLToInterfaceByQuery(17l);
+        EmployeeOnlySnoPhone employeeOnlySnoPhone = employeeRepository.testJPQLToInterfaceByQuery(1l);
         System.out.println(employeeOnlySnoPhone.getId());
         System.out.println(employeeOnlySnoPhone.getPhone());
     }
