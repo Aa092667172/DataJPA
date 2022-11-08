@@ -1,6 +1,7 @@
 package com.jpa.datajpa.dao;
 
 import com.jpa.datajpa.dto.EmployeeOnlySnoNameDto;
+import com.jpa.datajpa.entity.Department;
 import com.jpa.datajpa.entity.Employee;
 import com.jpa.datajpa.enums.Gender;
 import com.jpa.datajpa.interfaces.EmployeeOnlySnoPhone;
@@ -9,7 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -18,15 +22,19 @@ import static org.junit.jupiter.api.Assertions.*;
 public class EmployeeRepositoryTest {
     @Autowired
     private EmployeeRepository employeeRepository;
+    @Autowired
+    private DepartmentRepository departmentRepository;
 
     @Test
+    @Transactional
+    @Rollback(value = false)
     void insert(){
         Employee employee = new Employee();
         employee.setName("測試");
         employee.setPhone("09333333465");
         employee.setDepartmentId(1l);
         employee.setGender(Gender.FEMALE);
-        employeeRepository.save(employee);
+        employeeRepository.saveAndFlush(employee);
     }
     @Test
     void findAll(){
@@ -38,7 +46,6 @@ public class EmployeeRepositoryTest {
         EmployeeOnlySnoNameDto employeeOnlySnoNameDto = employeeRepository.findByName("鈺凱");
         System.out.println(employeeOnlySnoNameDto);
     }
-
     @Test
     void findInterface(){
         EmployeeOnlySnoPhone byPhone = employeeRepository.findByPhone("0919336777");

@@ -44,4 +44,5 @@ public interface EmployeeRepository extends JpaRepository<Employee,Long> {
             " and ( e.name =?2 or ?2 is null  ) " +
             " and (e.id =?3 or ?3 is null   )  ")
     List<Employee> testJPQLByDynamicQuery1(@Param("sno") Long id,String name,String phone);
+
 }

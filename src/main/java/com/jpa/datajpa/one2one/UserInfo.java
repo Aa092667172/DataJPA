@@ -33,9 +33,8 @@ public class UserInfo implements Serializable {
      *
      */
     //當主建和外建都是同一字段時
-//    @MapsId
+    @MapsId
     @OneToOne(cascade ={CascadeType.PERSIST},orphanRemoval = true,fetch = FetchType.LAZY) //維護user的外建關聯關係,配置一對一
-//    @JoinColumn(foreignKey = @ForeignKey(ConstraintMode.NO_CONSTRAINT),name = "my_user_id")
-//    不綁定fk 但是將user_test_id 對應到 my_user_id中
+    @JoinColumn(foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT,name = "my_user_test_id"))
     private UserTest userTest;
 }

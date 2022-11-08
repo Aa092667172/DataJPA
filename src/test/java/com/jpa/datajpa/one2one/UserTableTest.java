@@ -1,6 +1,5 @@
 package com.jpa.datajpa.one2one;
 
-import org.junit.Before;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +36,7 @@ public class UserTableTest {
     @Test
     @Rollback(false)
     public void testUserRelationships(){
-        UserInfo userInfo = userInfoRepository.getReferenceById(46l);
+        UserInfo userInfo = userInfoRepository.getReferenceById(1l);
         System.out.println(userInfo);
         System.out.println(userInfo.getUserTest().getId());
     }

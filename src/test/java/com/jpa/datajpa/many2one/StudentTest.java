@@ -38,7 +38,7 @@ public class StudentTest {
     @Test
     @Rollback(value = false)
     void testStudentRelationships(){
-        Student student = studentRepository.getReferenceById(61l);
+        Student student = studentRepository.getReferenceById(79l);
         System.out.println(student.getName());
         System.out.println(student.getAddress());
     }

@@ -1,8 +1,10 @@
 package com.jpa.datajpa.entity;
 
+import com.jpa.datajpa.many2one.Student;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.HashSet;
 
 @Data
 @Entity
