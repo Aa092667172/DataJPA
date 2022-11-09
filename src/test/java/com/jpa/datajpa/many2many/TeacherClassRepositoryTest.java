@@ -8,14 +8,8 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 class TeacherClassRepositoryTest {
-    @Autowired
-    private TeacherRepository teacherRepository;
-    @Autowired
-    private TeacherClassRepository teacherClassRepository;
 
     @Test
     void test(){
-            TechClass techClass = TechClass.builder().title("國文課").build();
-        System.out.println(techClass);
     }
 }
