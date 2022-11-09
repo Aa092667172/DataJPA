@@ -32,7 +32,7 @@ public class EmployeeRepositoryTest {
         Employee employee = new Employee();
         employee.setName("測試");
         employee.setPhone("09333333465");
-        employee.setDepartmentId(1l);
+//        employee.setDepartmentId(1l);
         employee.setGender(Gender.FEMALE);
         employeeRepository.saveAndFlush(employee);
     }
@@ -86,4 +86,24 @@ public class EmployeeRepositoryTest {
     void findDynamic1(){
         assertEquals(employeeRepository.testJPQLByDynamicQuery1(null,"鈺凱",null).size(),1);
     }
+
+    @Test
+    void  findjoin(){
+        Department department = new Department();
+        department.setDepartmentName("haha test");
+        departmentRepository.save(department);
+
+        Employee employee = new Employee();
+        employee.setDepartmentId(department.getId());
+        employee.setGender(Gender.MALE);
+        employee.setName("阿森");
+        employee.setPhone("0926332608");
+
+        employeeRepository.save(employee);
+
+        System.out.println(employeeRepository.findAll());
+        System.out.println(departmentRepository.findAll());
+
+    }
+
 }

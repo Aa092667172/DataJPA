@@ -5,6 +5,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 
 @Data
 @Entity
@@ -16,4 +17,11 @@ public class Department {
     private Long id;
     @Column(name = "name")
     private String departmentName;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "department_id", referencedColumnName="sno",
+            foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
+    private List<Employee> employees;
+
+
 }
