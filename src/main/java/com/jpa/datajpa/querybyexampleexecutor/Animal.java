@@ -1,5 +1,7 @@
 package com.jpa.datajpa.querybyexampleexecutor;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.jpa.datajpa.enums.SexEnum;
 import lombok.*;
 
@@ -26,5 +28,6 @@ public class Animal implements Serializable {
     private Instant createDate;
     private Date updateDate;
     @OneToMany(mappedBy = "animal",fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @JsonBackReference
     private List<AnimalAddress> animalAddresses;
 }

@@ -2,6 +2,7 @@ package com.jpa.datajpa.querybyexampleexecutor;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.jpa.datajpa.enums.SexEnum;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,6 +17,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Date;
 
@@ -25,9 +28,7 @@ class AnimalAddressRepositoryTest {
     @Autowired
     private AnimalAddressRepository animalAddressRepository;
 
-    @BeforeEach
-    @Transactional
-    @Rollback(false)
+//    @BeforeEach
     void init(){
         Animal animal = Animal.builder()
                 .name("jack")
@@ -49,7 +50,6 @@ class AnimalAddressRepositoryTest {
     }
 
     @Test
-    @Rollback(value = false)
     void test() throws JsonProcessingException {
         Animal animal = Animal.builder()
                 .name("jack")
@@ -57,15 +57,18 @@ class AnimalAddressRepositoryTest {
                 .build();
         AnimalAddress address = AnimalAddress.builder()
                 .animal(animal)
-                .address("泰山區")
+                .address("板橋區")
                 .build();
         ObjectMapper objectMapper = new ObjectMapper();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MMM-dd HH:mm:ss");
+        objectMapper.setDateFormat(df);
+        objectMapper.registerModule(new JavaTimeModule());
+
         System.out.println(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(address));
-        ExampleMatcher exampleMatcher= ExampleMatcher.matching().withMatcher("animal.name",ExampleMatcher.GenericPropertyMatchers.startsWith())
-                .withMatcher("address",ExampleMatcher.GenericPropertyMatchers.startsWith());
-
+        ExampleMatcher exampleMatcher =
+                ExampleMatcher.matchingAll()
+                        .withMatcher("animal.name",ExampleMatcher.GenericPropertyMatchers.contains());
         Page<AnimalAddress> u = animalAddressRepository.findAll(Example.of(address,exampleMatcher), PageRequest.of(0,2));
-
         System.out.println(objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(u));
     }
 }

@@ -1,7 +1,6 @@
-package com.jpa.datajpa.querybyexampleexecutor;
+package com.jpa.datajpa.specifications;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 
@@ -9,17 +8,19 @@ import javax.persistence.*;
 
 @Entity
 @Data
-@ToString(exclude = "Animal")
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AnimalAddress {
+@Builder
+@Table(name = "bill_order")
+@ToString(exclude = "bill")
+public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String orderName;
     private String address;
-
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JsonManagedReference
-    private Animal animal;
+    @ManyToOne
+    @JoinColumn(name = "bill_id")
+    @JsonBackReference
+    private Bill bill;
 }
