@@ -72,7 +72,7 @@ class BillRepositoryTest {
     }
     @Test
     void findOne(){
-        Long id = 1l;
+//        Long id = 1l;
         String name = "test";
         Integer amount = 200;
         List<Long> in = Arrays.asList(1l,2l,3l);
@@ -80,7 +80,7 @@ class BillRepositoryTest {
         Specification specification = (Specification)(root, cq, cb) -> {
             Predicate inP = cb.in(root.get("id")).value(in);
             Predicate like  = cb.like(root.get("name"),"%"+name+"%");
-            Predicate qe = cb.equal(root.get("name"), name);
+//            Predicate qe = cb.equal(root.get("name"), name);
             Predicate ge = cb.ge(root.get("amount"), amount);
             return cq.where(inP, like,ge)
                     .getRestriction();
@@ -125,7 +125,6 @@ class BillRepositoryTest {
         page.getNumberOfElements();
 
         System.out.println(page.getNumberOfElements());
-
         //單純取數量
         System.out.println(repository.count(specification));
 
