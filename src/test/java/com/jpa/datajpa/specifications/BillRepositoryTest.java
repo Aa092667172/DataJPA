@@ -12,6 +12,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.test.annotation.Rollback;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.criteria.*;
 import java.util.*;
@@ -27,6 +28,7 @@ class BillRepositoryTest {
 
     @Test
     @Rollback(value = false)
+    @Transactional
     void init(){
 
         Bill vo = new Bill();

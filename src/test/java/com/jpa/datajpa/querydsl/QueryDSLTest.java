@@ -23,12 +23,10 @@ public class QueryDSLTest {
     private JPAQueryFactory jpaQueryFactory;
 
     @Test
-    @Rollback(value = false)
-    @Transactional
     void update(){
         QBill qBill = QBill.bill;
         BooleanBuilder builder = new BooleanBuilder();
-        builder.and(qBill.id.eq(1l));
+        builder.and(qBill.id.eq(3l));
 
         long count = jpaQueryFactory.update(qBill).set(qBill.name, "測試測試").where(builder).execute();
         System.out.println(count);
@@ -73,7 +71,9 @@ public class QueryDSLTest {
 //        long l = jpaQueryFactory.selectFrom(qOrder).where(builder).fetchCount();
 //        System.out.println(l);
         //去從
-        System.out.println(jpaQueryFactory.selectDistinct(qOrder.orderName.substring(0,7) ).from(qOrder).where(builder).fetch());
+//        System.out.println(jpaQueryFactory.selectDistinct(qOrder.orderName.substring(0,7) ).from(qOrder).where(builder).fetch());
+        //分頁
+        System.out.println(jpaQueryFactory.selectFrom(qOrder).where(builder).offset(2).limit(2).fetch());
 
     }
 
